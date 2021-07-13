@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  auth:
+    build:
+      context: ./auth
+      dockerfile: ./dockerfile
+    restart: unless-stopped
+    env_file: ./auth/.env
+    ports:
+      - 5000:5000
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ./dockerfile
+    restart: unless-stopped
+    env_file: ./backend/.env
+    ports:
+      - 5001:5001

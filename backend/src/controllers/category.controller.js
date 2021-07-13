@@ -12,7 +12,7 @@ class CategoryController {
 
     findOne = async (req, res) => {
         const { id } = req.params
-        const result = this.service.findOne({ _id: id })
+        const result = await this.service.findOne({ _id: id })
         res.status(200).json(result)
     }
 

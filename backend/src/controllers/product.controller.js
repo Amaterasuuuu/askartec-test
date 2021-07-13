@@ -13,7 +13,7 @@ class ProductController {
     }
     
     findAllFav = async (req, res) => {
-        const ids = []
+        const { ids } = req.query
         const result = await this.service.findAllFav(ids)
         res.status(200).json(result)
     }
@@ -37,8 +37,7 @@ class ProductController {
     }
 
     addToFav = async (req, res) => {
-        const { product_id } = req.body
-        const { _id: user_id } = req.user
+        const { product_id, user_id } = req.body
         const result = await this.service.addToFav(user_id, product_id)
         res.status(200).json(result)
     }
