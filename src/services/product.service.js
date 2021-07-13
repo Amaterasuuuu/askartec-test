@@ -9,7 +9,11 @@ class ProductService {
     }
 
     async findAll(options) {
-        return await ProductModel.find(options)
+        try {
+            return await ProductModel.find(options)
+        } catch(e) {
+            return { status: 400, message: 'Bad request' }
+        }
     }
 
     async findOne(options) {

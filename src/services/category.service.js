@@ -1,13 +1,21 @@
 const CategoryModel = require('../models/category.model')
 
 class CategoryService {
-    async findAll(options) {
-        return await CategoryModel.find(options)
+    async findAll(options = {}) {
+        const categories = await CategoryModel.find(options)
+        for (let category of categories) {
+            category.products_count = await CategoryModel.countDocuments({
+                _id: category._id
+            })
+        }
+        return categories
     }
 
     async findOne(options) {
         try {
-            return await CategoryModel.findOne(options)
+            const category = await CategoryModel.findOne(options)
+            category.products_count = await CategoryModel.countDocuments(options)
+            return category
         } catch(e) {
             return { status: 400, message: 'Category is not defined' }
         }
